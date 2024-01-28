@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link href="./output.css" rel="stylesheet" />
+    <script defer src="../script/login.js"></script>
   </head>
   <body
     class="font-poppins bg-gradient-to-t from-purple-400 to-amber-300 flex items-center justify-center h-screen"
@@ -23,7 +24,7 @@
 
       <!-- Login Form -->
 
-      <form action="./feed/index.html" method="post" class="space-y-6">
+      <form id="login-form" method="post" class="space-y-6">
         <!-- Username -->
 
         <div>
@@ -63,14 +64,13 @@
 
         <!-- Login Button -->
         <div class="flex items-center flex-col gap-4">
-          <a href="./feed/index.html"
-            ><button
-              type="submit"
-              class="bg-rose-600 mt-1 p-2 w-full text-white rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            >
-              Log in
-            </button></a
+          <button
+            type="submit"
+            class="bg-rose-600 mt-1 p-2 w-full text-white rounded-md focus:outline-none focus:ring focus:border-blue-300"
           >
+            Log in
+          </button>
+
           <p class="text-sm">
             New to PictoChat?
             <span class="font-semibold hover:underline">Sign up!</span>
