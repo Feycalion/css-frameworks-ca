@@ -1,6 +1,5 @@
 # Css Frameworks Course Assignment
 
-<<<<<<< HEAD
 For this course assignment we were tasked with creating a social media platform. I created PictoChat.
 =======
 ![pictochat](https://github.com/Feycalion/css-frameworks-ca/assets/90476295/ff18ba1a-e77f-4362-b0b8-132fa4eefd21)
@@ -35,4 +34,3 @@ TBA
 
 TBA
 
->>>>>>> d133b182c9c93dc6924904abe67f9a2e5ebdfcf8
