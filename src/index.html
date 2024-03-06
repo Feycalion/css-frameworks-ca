@@ -11,13 +11,14 @@
       rel="stylesheet"
     />
     <link href="./output.css" rel="stylesheet" />
-    <script defer src="./script/login.js"></script>
+    <script type="module" defer src="./script/api/auth/register.mjs"></script>
+    <script type="module" defer src="./script/api/auth/login.mjs"></script>
   </head>
   <body
     class="font-poppins bg-gradient-to-t from-purple-400 to-amber-300 flex items-center justify-center h-screen"
   >
     <div class="text-amber-900 bg-white p-8 rounded shadow-md w-96">
-      <h1 class="text-2xl font-bold mb-8 flex justify-center">
+      <h1 id="form-title" class="text-2xl font-bold mb-8 flex justify-center">
         Log in to <span class="ml-1 text-rose-500"> Picto</span
         ><span class="text-violet-500">Chat</span>
       </h1>
@@ -25,7 +26,7 @@
       <!-- Login Form -->
 
       <form id="login-form" method="post" class="space-y-6">
-        <!-- Username -->
+        <!-- Email -->
 
         <div>
           <label for="email" class="block text-sm font-medium">Email</label>
@@ -73,13 +74,89 @@
 
           <p class="text-sm">
             New to PictoChat?
-            <span class="font-semibold hover:underline">Sign up!</span>
+            <span
+              id="show-register-form"
+              class="font-semibold cursor-pointer text-rose-600 hover:underline"
+              >Sign up!</span
+            >
           </p>
         </div>
 
         <p class="text-sm flex justify-center hover:underline">
           Forgot your password?
         </p>
+      </form>
+
+      <!-- Registration Form -->
+
+      <form id="register-form" method="post" class="space-y-6 hidden">
+        <div>
+          <label for="username" class="block text-sm font-medium">
+            Username
+          </label>
+          <input
+            type="username"
+            id="username"
+            name="username"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-violet-300"
+          />
+        </div>
+        <div>
+          <label for="create-email" class="block text-sm font-medium"
+            >Email</label
+          >
+          <input
+            type="create-email"
+            id="create-email"
+            name="create-email"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-violet-300"
+          />
+        </div>
+
+        <!-- Password -->
+
+        <div>
+          <label for="create-password" class="block text-sm font-medium"
+            >Password</label
+          >
+          <input
+            type="create-password"
+            id="create-password"
+            name="create-password"
+            minlength="8"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-violet-300"
+          />
+        </div>
+
+        <!-- ToS and Privacy Policy -->
+
+        <p class="text-xs mb-8 text-amber-900/80">
+          By clicking register, you agree to PictoChat's
+          <span class="underline">Terms of Service</span> and have read the
+          <span class="underline">Privacy Policy</span>
+        </p>
+
+        <!-- Register Button -->
+        <div class="flex items-center flex-col gap-4">
+          <button
+            type="submit"
+            class="bg-rose-600 mt-1 p-2 w-full text-white rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Register
+          </button>
+
+          <p class="text-sm">
+            Already have an account?
+            <span
+              id="show-login-form"
+              class="font-semibold cursor-pointer text-rose-600 hover:underline"
+              >Log in!</span
+            >
+          </p>
+        </div>
       </form>
     </div>
   </body>

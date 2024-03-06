@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link href="../output.css" rel="stylesheet" />
+    <script defer src="/src/script/postmodal.js"></script>
   </head>
 
   <body class="font-poppins">
@@ -254,9 +255,7 @@
           Topics for you
         </h2>
         <!-- Topic -->
-        <div
-          class="flex gap-8 mx-auto overflow-x-hidden overflow-x-scroll md:overflow-visible"
-        >
+        <div class="flex gap-8 mx-auto overflow-x-hidden md:overflow-visible">
           <div class="relative shrink-0">
             <img
               class="rounded-full object-cover w-[112px] h-[112px] mx-auto"
@@ -311,61 +310,150 @@
         </div>
       </div>
 
-      <!-- Sort By -->
+      <div
+        class="md:max-w-[1200] mx-auto flex flex-col justify-center items-center"
+      >
+        <div class="flex gap-16 py-2">
+          <!-- Sort By -->
 
-      <style>
-        #sortbox:checked ~ #sortboxmenu {
-          opacity: 1;
-        }
-      </style>
+          <style>
+            #sortbox:checked ~ #sortboxmenu {
+              opacity: 1;
+            }
+          </style>
 
-      <div class="relative mx-auto max-w-lg pt-6 pl-6">
-        <input type="checkbox" id="sortbox" class="hidden absolute" />
-        <label for="sortbox" class="flex items-center space-x-1 cursor-pointer">
-          <span class="text-lg">Sort By</span>
-          <svg
-            class="h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <div class="relative mx-auto max-w-lg pt-6 pl-6">
+            <input type="checkbox" id="sortbox" class="hidden absolute" />
+            <label
+              for="sortbox"
+              class="flex items-center space-x-1 cursor-pointer"
+            >
+              <span class="text-lg">Sort By</span>
+              <svg
+                class="h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </label>
+
+            <div
+              id="sortboxmenu"
+              class="absolute mx-auto max-w-lg mt-1 left-1 top-full min-w-max shadow rounded opacity-0 bg-white border border-violet-400 transition delay-75 ease-in-out z-10"
+            >
+              <ul class="block text-gray-900">
+                <li>
+                  <a
+                    href="#"
+                    class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
+                    >Featured</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
+                    >Newest</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
+                    >Relevance</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Button -->
+          <button
+            id="openModalButton"
+            class="bg-red-500 text-white m-4 p-2 px-4 rounded-md flex-wrap hover:bg-red-600 focus:outline-none focus:shadow-outline-blue active:bg-red-700"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </label>
+            New Post
+          </button>
+        </div>
 
+        <!-- Modal Container -->
         <div
-          id="sortboxmenu"
-          class="absolute mx-auto max-w-lg mt-1 left-1 top-full min-w-max shadow rounded opacity-0 bg-white border border-violet-400 transition delay-75 ease-in-out z-10"
+          id="modalContainer"
+          class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-30"
         >
-          <ul class="block text-gray-900">
-            <li>
-              <a
-                href="#"
-                class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
-                >Featured</a
+          <!-- Modal Content -->
+          <div class="relative p-8 bg-white w-96 mx-auto my-8 rounded-md">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold">Create New Post</h2>
+              <button
+                id="closeModalButton"
+                class="text-gray-500 hover:text-gray-700 focus:outline-none"
               >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
-                >Newest</a
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <!-- Modal Body -->
+            <form>
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Title</label
               >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
-                >Relevance</a
+              <input
+                type="text"
+                class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
+              />
+
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Image URL</label
               >
-            </li>
-          </ul>
+              <input
+                type="text"
+                class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
+              />
+
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Description</label
+              >
+              <textarea
+                class="w-full px-4 py-2 mb-4 border rounded-md resize-none focus:outline-none focus:border-violet-500"
+              ></textarea>
+
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Tags</label
+              >
+              <input
+                type="text"
+                class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
+              />
+
+              <button
+                type="submit"
+                class="w-full bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 focus:outline-none focus:shadow-outline-blue active:bg-violet-700"
+              >
+                Create Post
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 
