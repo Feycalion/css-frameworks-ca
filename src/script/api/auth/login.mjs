@@ -1,15 +1,4 @@
-const loginForm = document.querySelector("#login-form");
-
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  window.location.href = "./profile";
-});
-
-console.log("hei");
-
 import { API_KEY, API_BASE, API_AUTH, API_LOGIN } from "../../../../index.mjs";
-
-console.log("hei");
 
 export default async function login(email, password) {
   console.log(password, email);
@@ -26,9 +15,10 @@ export default async function login(email, password) {
       }),
     });
     const data = await response.json();
-    console.log(data.data.accessToken);
-    localStorage.setItem("token", data.data.accessToken);
-    console.log(localStorage.getItem("token"));
+    console.log(data);
+    localStorage.setItem("profile", JSON.stringify(data.data));
+
+    //window.location.href = "./profile";
   } catch (error) {
     console.error(error);
   }

@@ -5,15 +5,10 @@ import {
   API_REGISTER,
 } from "../../../../index.mjs";
 
-const registerForm = document.querySelector("#register-form");
+import login from "./login.mjs";
 
-registerForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  window.location.href = "./profile";
-});
-
-export default async function register(username, email, password) {
-  console.log(username, password, email);
+export default async function register(username, email, password, avatarUrl) {
+  console.log(username, password, email, avatarUrl);
   try {
     const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
       method: "POST",
@@ -25,9 +20,14 @@ export default async function register(username, email, password) {
         name: username,
         email: email,
         password: password,
+        avatar: {
+          url: avatarUrl,
+        },
       }),
     });
-    const data = await response.json();
+    const result = await response.json();
+    console.log(result);
+    login(email, password);
   } catch (error) {
     console.error("Error during registration", error);
   }
@@ -38,19 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("register-form");
   const formTitle = document.getElementById("form-title");
 
-  loginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
-  });
-
   registerForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const name = document.querySelector("#username").value;
     const email = document.querySelector("#create-email").value;
     const password = document.querySelector("#create-password").value;
+    const avatarUrl = document.querySelector("#avatar-url").value;
 
-    register(name, email, password);
+    register(name, email, password, avatarUrl);
   });
 
   // Toggle between login and registration forms

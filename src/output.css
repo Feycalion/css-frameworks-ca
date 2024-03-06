@@ -711,6 +711,10 @@ video {
   height: 100vh;
 }
 
+.min-h-10 {
+  min-height: 2.5rem;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -746,6 +750,10 @@ video {
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
+}
+
+.min-w-10 {
+  min-width: 2.5rem;
 }
 
 .max-w-lg {
@@ -1278,6 +1286,14 @@ video {
 @media (min-width: 768px) {
   .md\:block {
     display: block;
+  }
+
+  .md\:h-16 {
+    height: 4rem;
+  }
+
+  .md\:h-10 {
+    height: 2.5rem;
   }
 
   .md\:w-10 {

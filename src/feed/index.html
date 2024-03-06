@@ -12,6 +12,7 @@
     />
     <link href="../output.css" rel="stylesheet" />
     <script defer src="/src/script/postmodal.js"></script>
+    <script type="module" defer src="../script/feed.mjs"></script>
   </head>
 
   <body class="font-poppins">
@@ -44,9 +45,9 @@
 
           <a href="../profile"
             ><img
-              src="../images/profilepicture.jpg"
-              alt="Avatar user"
-              class="w-10 md:w-10 rounded-full mx-auto"
+              id="avatar-feed"
+              alt=""
+              class="w-10 h-10 object-cover md:w-10 md:h-10 rounded-full mx-auto"
           /></a>
         </div>
       </div>
@@ -66,19 +67,17 @@
         <a href="../profile">
           <div class="space-y-3">
             <img
-              src="../images/profilepicture.jpg"
-              alt="Avatar user"
-              class="w-10 md:w-16 rounded-full mx-auto"
+              id="avatar-sidenav"
+              alt=""
+              class="min-w-10 min-h-10 object-cover md:w-16 md:h-16 rounded-full mx-auto"
             />
             <div>
               <h2
+                id="username"
                 class="font-medium text-xs md:text-sm text-center text-violet-600"
-              >
-                Julia Jenner
-              </h2>
-            </div>
-          </div></a
-        >
+              ></h2>
+            </div></div
+        ></a>
         <div
           class="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-violet-500"
         >
