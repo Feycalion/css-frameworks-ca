@@ -25,7 +25,7 @@ getPosts();
 
 function printPosts(posts) {
   posts.forEach((post) => {
-    console.log(post);
+    //console.log(post);
     const postInfo = document.createElement("div");
     postInfo.classList.add("flex", "items-center", "mb-4");
     const postImage = checkImage(post.media);
