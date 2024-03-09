@@ -18,7 +18,7 @@ export default async function login(email, password) {
     console.log(data);
     localStorage.setItem("profile", JSON.stringify(data.data));
 
-    //window.location.href = "./profile";
+    window.location.href = "./profile";
   } catch (error) {
     console.error(error);
   }
