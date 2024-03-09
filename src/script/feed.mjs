@@ -11,8 +11,7 @@ export default async function getPosts() {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      //Legg inn bearer token dynamisk
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDIsIm5hbWUiOiJteV91c2VybmFtZSIsImVtYWlsIjoiZmlyc3QubGFzdEBzdHVkLm5vcm9mZi5ubyIsImJpbyI6bnVsbCwiY3JlYXRlZCI6IjIwMjQtMDItMDdUMTI6NDg6MjguMjQ3WiIsInVwZGF0ZWQiOiIyMDI0LTAyLTA3VDEyOjQ4OjI4LjI0N1oiLCJjcmVkaXRzIjoxMDAwLCJ2ZW51ZU1hbmFnZXIiOmZhbHNlLCJhdmF0YXIiOnsiaWQiOiJmMzQyOTIxZC1hM2M0LTQ1MGMtYTY1NC0xNTIwMjQwNTcwNGEiLCJ1cmwiOiJodHRwczovL3BpY3N1bS5waG90b3MvaWQvMTM1LzgwMC84MDAiLCJhbHQiOiIiLCJzb2NpYWxQb3N0SWQiOm51bGwsImF1Y3Rpb25MaXN0aW5nSWQiOm51bGwsImhvbGlkYXplVmVudWVJZCI6bnVsbCwidXNlckF2YXRhcklkIjo0MiwidXNlckJhbm5lcklkIjpudWxsLCJib29rSWQiOm51bGwsIm9sZEdhbWVJZCI6bnVsbCwib25saW5lU2hvcFByb2R1Y3RJZCI6bnVsbCwicmFpbnlEYXlzUHJvZHVjdElkIjpudWxsLCJnYW1lSHViUHJvZHVjdElkIjpudWxsLCJzcXVhcmVFeWVzUHJvZHVjdElkIjpudWxsfSwiYmFubmVyIjp7ImlkIjoiYTZiYzg2NzctMWE2Ni00Zjg5LWE5ZTctMDM4ZjViZmMyMWRkIiwidXJsIjoiaHR0cHM6Ly9waWNzdW0ucGhvdG9zL2lkLzg4OC8xNTAwLzUwMCIsImFsdCI6IiIsInNvY2lhbFBvc3RJZCI6bnVsbCwiYXVjdGlvbkxpc3RpbmdJZCI6bnVsbCwiaG9saWRhemVWZW51ZUlkIjpudWxsLCJ1c2VyQXZhdGFySWQiOm51bGwsInVzZXJCYW5uZXJJZCI6NDIsImJvb2tJZCI6bnVsbCwib2xkR2FtZUlkIjpudWxsLCJvbmxpbmVTaG9wUHJvZHVjdElkIjpudWxsLCJyYWlueURheXNQcm9kdWN0SWQiOm51bGwsImdhbWVIdWJQcm9kdWN0SWQiOm51bGwsInNxdWFyZUV5ZXNQcm9kdWN0SWQiOm51bGx9LCJpYXQiOjE3MDgzNjQ0MDl9.T5CJTFAArddnsJE4Kz_7Jb3b2gZKu4Pfn4WTFgwYBb0`,
+      Authorization: `Bearer ${profile.accessToken} `,
       "X-Noroff-API-Key": API_KEY,
     },
   };
@@ -30,7 +29,8 @@ function printPosts(posts) {
     const postInfo = document.createElement("div");
     postInfo.classList.add("flex", "items-center", "mb-4");
     const postImage = checkImage(post.media);
-    const postCard = document.createElement("div");
+    const postCard = document.createElement("a");
+    postCard.href = `singlepost.html?id=${post.id}`;
 
     postCard.classList.add(
       "max-w-lg",
@@ -39,7 +39,8 @@ function printPosts(posts) {
       "bg-white",
       "p-6",
       "rounded-md",
-      "shadow-md"
+      "shadow-md",
+      "block"
     );
 
     postInfo.innerHTML = `
@@ -83,10 +84,6 @@ function createTagsContainer(tags) {
 
   return container;
 }
-
-// .. inni forEach > create elements
-// append elements til postCard
-// append til DOM
 
 const avatarFeed = document.getElementById("avatar-feed");
 const avatarSidenav = document.getElementById("avatar-sidenav");
