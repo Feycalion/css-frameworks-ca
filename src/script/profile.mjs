@@ -27,9 +27,10 @@ if (profile.bio && profile.bio.trim() !== "") {
   bio.textContent = "This user hasn't added a bio yet.";
 }
 
-// Profile Numbers
-
-// Profile Posts
+/**
+ * Get posts created by the user.
+ * @returns {Promise<Array>} - A Promise that resolves with an array of user's posts.
+ */
 
 async function getUserPosts() {
   const options = {
@@ -49,6 +50,11 @@ async function getUserPosts() {
   return result.data;
 }
 
+/**
+ * Display user's posts in the DOM.
+ * @returns {Promise<void>} - A Promise that resolves once the posts are displayed.
+ */
+
 async function displayUserPosts() {
   const userPosts = await getUserPosts();
   const postsContainer = document.getElementById("posts-container");
@@ -62,6 +68,12 @@ async function displayUserPosts() {
     gridContainer.appendChild(postCard);
   });
 }
+
+/**
+ * Create a DOM element representing a post card.
+ * @param {Object} post - The post object.
+ * @returns {HTMLDivElement} - The created post card element.
+ */
 
 function createPostCard(post) {
   console.log(post);

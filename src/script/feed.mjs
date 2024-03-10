@@ -6,6 +6,10 @@ const profile = load("profile");
 
 let postArray = [];
 
+/**
+ * Fetch and print posts, called on page load.
+ */
+
 export default async function getPosts() {
   const options = {
     method: "GET",
@@ -35,6 +39,11 @@ searchBar.addEventListener("keyup", (e) => {
   printPosts(filteredResult);
 });
 
+/**
+ * Event listener for the sort menu change event.
+ * @param {Event} e - The change event.
+ */
+
 const sortMenu = document.getElementById("sort");
 
 sortMenu.addEventListener("change", (e) => {
@@ -54,6 +63,11 @@ sortMenu.addEventListener("change", (e) => {
   postContainer.innerHTML = "";
   printPosts(sortedResult);
 });
+
+/**
+ * Print posts to the DOM.
+ * @param {Array} posts - Array of post objects.
+ */
 
 function printPosts(posts) {
   posts.forEach((post) => {
@@ -87,8 +101,6 @@ function printPosts(posts) {
     
     `;
 
-    // postInteraction.innerHTML = ``;
-
     const tagsContainer = createTagsContainer(post.tags);
     postCard.appendChild(tagsContainer);
 
@@ -96,7 +108,11 @@ function printPosts(posts) {
   });
 }
 
-// Tags
+/**
+ * Create a container for post tags.
+ * @param {Array} tags - Array of tag strings.
+ * @returns {HTMLDivElement} - Container element for tags.
+ */
 
 function createTagsContainer(tags) {
   const container = document.createElement("div");
@@ -121,5 +137,3 @@ const username = document.getElementById("username");
 avatarFeed.src = profile.avatar.url;
 avatarSidenav.src = profile.avatar.url;
 username.textContent = profile.name;
-
-// Posts

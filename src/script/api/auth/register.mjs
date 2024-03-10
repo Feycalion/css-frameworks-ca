@@ -7,6 +7,15 @@ import {
 
 import login from "./login.mjs";
 
+/**
+ * User registration function that makes a POST request to register a new user.
+ *
+ * @param {string} username - The username for the new user.
+ * @param {string} email - The email address for the new user.
+ * @param {string} password - The password for the new user.
+ * @param {string} avatarUrl - The URL of the user's avatar.
+ * @returns {Promise<void>} - A Promise that resolves once the registration process is completed.
+ */
 export default async function register(username, email, password, avatarUrl) {
   console.log(username, password, email, avatarUrl);
   try {
@@ -25,8 +34,16 @@ export default async function register(username, email, password, avatarUrl) {
         },
       }),
     });
+
+    /**
+     * Parsed JSON response from the registration API.
+     * @type {Object}
+     * @property {Object} data - The result data from the registration.
+     */
     const result = await response.json();
     console.log(result);
+
+    // After successful registration, automatically log in the user
     login(email, password);
   } catch (error) {
     console.error("Error during registration", error);
@@ -34,17 +51,25 @@ export default async function register(username, email, password, avatarUrl) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  /**
+   * Event listener for the registration form submission.
+   *
+   * @param {Event} e - The form submission event.
+   */
   const loginForm = document.getElementById("login-form");
   const registerForm = document.getElementById("register-form");
   const formTitle = document.getElementById("form-title");
 
   registerForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    // Retrieve registration form input values
     const name = document.querySelector("#username").value;
     const email = document.querySelector("#create-email").value;
     const password = document.querySelector("#create-password").value;
     const avatarUrl = document.querySelector("#avatar-url").value;
 
+    // Call the registration function with the provided data
     register(name, email, password, avatarUrl);
   });
 

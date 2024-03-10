@@ -4,6 +4,12 @@ import checkImage from "./utils/checkimage.mjs";
 
 const profile = load("profile");
 
+/**
+ * Fetch and display a single post by its ID.
+ * @param {string} postId - The ID of the post to fetch and display.
+ * @returns {Promise<void>} - A Promise that resolves once the post is displayed.
+ */
+
 async function getSinglePost(postId) {
   const options = {
     method: "GET",
@@ -21,6 +27,11 @@ async function getSinglePost(postId) {
   printPost(post.data);
   console.log(post.data);
 }
+
+/**
+ * Display a single post in the DOM.
+ * @param {Object} post - The post object.
+ */
 
 function printPost(post) {
   const postInfo = document.createElement("div");
@@ -51,8 +62,6 @@ function printPost(post) {
     
     `;
 
-  // postInteraction.innerHTML = ``;
-
   const tagsContainer = createTagsContainer(post.tags);
   postCard.appendChild(tagsContainer);
 
@@ -60,6 +69,12 @@ function printPost(post) {
 
   postContainer.appendChild(postCard);
 }
+
+/**
+ * Create a container for post tags.
+ * @param {Array} tags - Array of tag strings.
+ * @returns {HTMLDivElement} - Container element for tags.
+ */
 
 function createTagsContainer(tags) {
   const container = document.createElement("div");
@@ -76,6 +91,10 @@ function createTagsContainer(tags) {
 
   return container;
 }
+
+/**
+ * Immediately invoked function expression (IIFE) to fetch and display a single post.
+ */
 
 (async () => {
   const queryString = window.location.search;
