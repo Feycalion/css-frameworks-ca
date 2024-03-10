@@ -11,6 +11,8 @@
       rel="stylesheet"
     />
     <link href="../output.css" rel="stylesheet" />
+    <script type="module" defer src="/src/script/createPost.mjs"></script>
+    <script type="module" defer src="../script/feed.mjs"></script>
   </head>
 
   <body class="font-poppins">
@@ -43,9 +45,9 @@
 
           <a href="../profile"
             ><img
-              src="../images/profilepicture.jpg"
-              alt="Avatar user"
-              class="w-10 md:w-10 rounded-full mx-auto"
+              id="avatar-feed"
+              alt=""
+              class="w-10 h-10 object-cover md:w-10 md:h-10 rounded-full mx-auto"
           /></a>
         </div>
       </div>
@@ -65,23 +67,22 @@
         <a href="../profile">
           <div class="space-y-3">
             <img
-              src="../images/profilepicture.jpg"
-              alt="Avatar user"
-              class="w-10 md:w-16 rounded-full mx-auto"
+              id="avatar-sidenav"
+              alt=""
+              class="min-w-10 min-h-10 object-cover md:w-16 md:h-16 rounded-full mx-auto"
             />
             <div>
               <h2
+                id="username"
                 class="font-medium text-xs md:text-sm text-center text-violet-600"
-              >
-                Julia Jenner
-              </h2>
-            </div>
-          </div></a
-        >
+              ></h2>
+            </div></div
+        ></a>
         <div
           class="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-violet-500"
         >
           <input
+            id="search-bar"
             type="text"
             class="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
             placeholder="Search"
@@ -254,9 +255,7 @@
           Topics for you
         </h2>
         <!-- Topic -->
-        <div
-          class="flex gap-8 mx-auto overflow-x-hidden overflow-x-scroll md:overflow-visible"
-        >
+        <div class="flex gap-8 mx-auto overflow-x-hidden md:overflow-visible">
           <div class="relative shrink-0">
             <img
               class="rounded-full object-cover w-[112px] h-[112px] mx-auto"
@@ -311,395 +310,111 @@
         </div>
       </div>
 
-      <!-- Sort By -->
+      <div
+        class="md:max-w-[1200] mx-auto flex flex-col justify-center items-center"
+      >
+        <div class="flex gap-16 py-2">
+          <!-- Sort By -->
 
-      <style>
-        #sortbox:checked ~ #sortboxmenu {
-          opacity: 1;
-        }
-      </style>
+          <style>
+            #sortbox:checked ~ #sortboxmenu {
+              opacity: 1;
+            }
+          </style>
 
-      <div class="relative mx-auto max-w-lg pt-6 pl-6">
-        <input type="checkbox" id="sortbox" class="hidden absolute" />
-        <label for="sortbox" class="flex items-center space-x-1 cursor-pointer">
-          <span class="text-lg">Sort By</span>
-          <svg
-            class="h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <select name="" id="sort">
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+          </select>
+
+          <!-- Button -->
+          <button
+            id="open-modal-button"
+            class="bg-red-500 text-white m-4 p-2 px-4 rounded-md flex-wrap hover:bg-red-600 focus:outline-none focus:shadow-outline-blue active:bg-red-700"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </label>
+            New Post
+          </button>
+        </div>
 
+        <!-- Modal Container -->
         <div
-          id="sortboxmenu"
-          class="absolute mx-auto max-w-lg mt-1 left-1 top-full min-w-max shadow rounded opacity-0 bg-white border border-violet-400 transition delay-75 ease-in-out z-10"
+          id="modal-container"
+          class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-30"
         >
-          <ul class="block text-gray-900">
-            <li>
-              <a
-                href="#"
-                class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
-                >Featured</a
+          <!-- Modal Content -->
+          <div class="relative p-8 bg-white w-96 mx-auto my-8 rounded-md">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold">Create New Post</h2>
+              <button
+                id="close-modal-button"
+                class="text-gray-500 hover:text-gray-700 focus:outline-none"
               >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
-                >Newest</a
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <!-- Modal Body -->
+            <form id="create-post-form">
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Title</label
               >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block px-3 py-2 hover:bg-rose-500 hover:text-white"
-                >Relevance</a
+              <input
+                id="post-title"
+                type="text"
+                class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
+              />
+
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Image URL</label
               >
-            </li>
-          </ul>
-        </div>
-      </div>
+              <input
+                id="image-url"
+                type="text"
+                class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
+              />
 
-      <!-- Post 1 -->
-      <div class="max-w-lg mx-auto my-8 bg-white p-6 rounded-md shadow-md">
-        <!-- User Info -->
-        <div class="flex items-center mb-4">
-          <img
-            src="../images/profilepicture3.webp"
-            alt="User Profile"
-            class="w-10 h-10 rounded-full mr-4"
-          />
-          <div>
-            <p class="font-bold">Greg Harvey</p>
-            <p class="text-gray-600 text-sm">Posted 10 minutes ago</p>
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Description</label
+              >
+              <textarea
+                id="description"
+                class="w-full px-4 py-2 mb-4 border rounded-md resize-none focus:outline-none focus:border-violet-500"
+              ></textarea>
+
+              <label class="block mb-2 text-sm font-medium text-gray-600"
+                >Tags (separate by comma)</label
+              >
+              <input
+                id="tags"
+                type="text"
+                class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
+              />
+
+              <button
+                type="submit"
+                class="w-full bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 focus:outline-none focus:shadow-outline-blue active:bg-violet-700"
+              >
+                Create Post
+              </button>
+            </form>
           </div>
         </div>
-
-        <!-- Post Content -->
-        <div>
-          <img src="../images/socialmediapost3.webp" alt="post" />
-          <p class="mt-4 text-lg leading-relaxed">
-            Pottery class is paying off!!
-          </p>
-          <p class="text-xs">
-            #pottery <span>#art</span> <span>#decoration</span>
-          </p>
-        </div>
-
-        <!-- Like, Comment, Share  -->
-        <div class="flex items-center mt-4">
-          <button class="flex items-center space-x-2 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-            <p class="text-sm">4 Likes</p>
-          </button>
-          <button class="flex items-center space-x-2 ml-4 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
-              />
-            </svg>
-            <p class="text-sm">1 Comment</p>
-          </button>
-          <button class="flex items-center ml-auto text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-              />
-            </svg>
-            <span
-              class="hidden group-hover:inline-block bg-gray-800 text-white text-xs rounded-md p-2"
-            >
-              Share
-            </span>
-          </button>
-        </div>
       </div>
-      <!-- Post 2 -->
-      <div class="max-w-lg mx-auto my-8 bg-white p-6 rounded-md shadow-md">
-        <!-- User Info 1 -->
-        <div class="flex items-center mb-4">
-          <img
-            src="../images/profilepicture4.webp"
-            alt="User Profile"
-            class="w-10 h-10 rounded-full mr-4"
-          />
-          <div>
-            <p class="font-bold">Brad Brendon</p>
-            <p class="text-gray-600 text-sm">Posted 1 hour ago</p>
-          </div>
-        </div>
 
-        <!-- Post Content -->
-        <div>
-          <img src="../images/socialmediapost8.webp" alt="post" />
-          <p class="mt-4 text-lg leading-relaxed">
-            little guy dozing off in the sun
-          </p>
-          <p class="text-xs">#cat <span>#spring</span></p>
-        </div>
-
-        <!-- Like, Comment, Share  -->
-        <div class="flex items-center mt-4">
-          <button class="flex items-center space-x-2 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-            <p class="text-sm">30 Likes</p>
-          </button>
-          <button class="flex items-center space-x-2 ml-4 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
-              />
-            </svg>
-            <p class="text-sm">2 Comments</p>
-          </button>
-          <button class="flex items-center ml-auto text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-              />
-            </svg>
-            <span
-              class="hidden group-hover:inline-block bg-gray-800 text-white text-xs rounded-md p-2"
-            >
-              Share
-            </span>
-          </button>
-        </div>
-      </div>
-      <!-- Post 3 -->
-      <div class="max-w-lg mx-auto my-8 bg-white p-6 rounded-md shadow-md">
-        <!-- User Info -->
-        <div class="flex items-center mb-4">
-          <img
-            src="../images/profilepicture2.webp"
-            alt="User Profile"
-            class="w-10 h-10 rounded-full mr-4"
-          />
-          <div>
-            <p class="font-bold">Linda Fuller</p>
-            <p class="text-gray-600 text-sm">Posted 2 hours ago</p>
-          </div>
-        </div>
-
-        <!-- Post Content -->
-        <div>
-          <img src="../images/socialmediapost4.webp" alt="post" />
-
-          <p class="text-xs mt-2">#interiordesign <span>#design</span></p>
-        </div>
-
-        <!-- Like, Comment, Share  -->
-        <div class="flex items-center mt-4">
-          <button class="flex items-center space-x-2 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-            <p class="text-sm">42 Likes</p>
-          </button>
-          <button class="flex items-center space-x-2 ml-4 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
-              />
-            </svg>
-            <p class="text-sm">6 Comments</p>
-          </button>
-          <button class="flex items-center ml-auto text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-              />
-            </svg>
-            <span
-              class="hidden group-hover:inline-block bg-gray-800 text-white text-xs rounded-md p-2"
-            >
-              Share
-            </span>
-          </button>
-        </div>
-      </div>
-      <!-- Post 4 -->
-      <div class="max-w-lg mx-auto my-8 bg-white p-6 rounded-md shadow-md">
-        <!-- User Info -->
-        <div class="flex items-center mb-4">
-          <img
-            src="../images/profilepicture5.jpg"
-            alt="User Profile"
-            class="w-10 h-10 rounded-full mr-4"
-          />
-          <div>
-            <p class="font-bold">Henry Strider</p>
-            <p class="text-gray-600 text-sm">Posted 2 hours ago</p>
-          </div>
-        </div>
-
-        <!-- Post Content -->
-        <div>
-          <img src="../images/socialmediapost7.webp" alt="post" />
-          <p class="mt-4 text-lg leading-relaxed">Small miracles everywhere</p>
-
-          <p class="text-xs">#nature <span>#photography</span></p>
-        </div>
-
-        <!-- Like, Comment, Share  -->
-        <div class="flex items-center mt-4">
-          <button class="flex items-center space-x-2 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-            <p class="text-sm">84 Likes</p>
-          </button>
-          <button class="flex items-center space-x-2 ml-4 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
-              />
-            </svg>
-            <p class="text-sm">8 Comments</p>
-          </button>
-          <button class="flex items-center ml-auto text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-              />
-            </svg>
-            <span
-              class="hidden group-hover:inline-block bg-gray-800 text-white text-xs rounded-md p-2"
-            >
-              Share
-            </span>
-          </button>
-        </div>
-      </div>
+      <div id="posts-container"></div>
     </main>
   </body>
 </html>
