@@ -4,7 +4,7 @@ import checkImage from "./utils/checkimage.mjs";
 
 const profile = load("profile");
 
-//console.log(profile);
+let postArray = [];
 
 export default async function getPosts() {
   const options = {
@@ -17,15 +17,27 @@ export default async function getPosts() {
   };
   const response = await fetch(API_BASE + API_POSTS + "?_author=true", options);
   const result = await response.json();
-  //console.log(result);
-  printPosts(result.data);
+  postArray = result.data;
+
+  printPosts(postArray);
 }
 
 getPosts();
 
+const searchBar = document.getElementById("search-bar");
+const postContainer = document.getElementById("posts-container");
+
+searchBar.addEventListener("keyup", (e) => {
+  //console.log(e.target.value);
+  const filteredResult = postArray.filter((post) =>
+    post.title.includes(e.target.value)
+  );
+  postContainer.innerHTML = "";
+  printPosts(filteredResult);
+});
+
 function printPosts(posts) {
   posts.forEach((post) => {
-    //console.log(post);
     const postInfo = document.createElement("div");
     postInfo.classList.add("flex", "items-center", "mb-4");
     const postImage = checkImage(post.media);
@@ -60,8 +72,6 @@ function printPosts(posts) {
 
     const tagsContainer = createTagsContainer(post.tags);
     postCard.appendChild(tagsContainer);
-
-    const postContainer = document.getElementById("posts-container");
 
     postContainer.appendChild(postCard);
   });

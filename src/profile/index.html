@@ -85,86 +85,108 @@
 
         <div class="mt-5">
           <h3 class="text-xl font-semibold text-center">Bio</h3>
-          <p id="bio" class="text-gray-600 mt-2">
-            I'm Julia and I'm a freelance photographer. I love taking picture of
-            people, food, places and nature! Don't hesitate to send me a
-            message.
-          </p>
+          <p id="bio" class="text-gray-600 mt-2 text-center"></p>
         </div>
         <!-- Profile Numbers -->
-        <div class="font-semibold text-gray-800 flex justify-between mt-10">
+        <div
+          id="profile-numbers"
+          class="font-semibold text-gray-800 flex justify-between mt-10"
+        >
           <p>308 Followers</p>
           <p>120 Following</p>
           <p>82 Posts</p>
         </div>
       </div>
-      <!-- Gallery -->
-      <div class="flex justify-center py-4">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost2.webp"
-              alt="mypost"
-            />
+      <!-- Modal Container -->
+      <div
+        id="modal-container"
+        class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-30"
+      >
+        <!-- Modal Content -->
+        <div class="relative p-8 bg-white w-96 mx-auto my-8 rounded-md">
+          <!-- Modal Header -->
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Update Post</h2>
+            <button
+              id="close-modal-button"
+              class="text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
           </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost5.webp"
-              alt="mypost2"
+          <!-- Modal Body -->
+          <form id="update-post-form">
+            <label class="block mb-2 text-sm font-medium text-gray-600"
+              >Title</label
+            >
+            <input
+              id="post-title"
+              type="text"
+              class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
             />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost9.webp"
-              alt="mypost3"
+
+            <label class="block mb-2 text-sm font-medium text-gray-600"
+              >Image URL</label
+            >
+            <input
+              id="image-url"
+              type="text"
+              class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
             />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost2.webp"
-              alt="mypost4"
+
+            <label class="block mb-2 text-sm font-medium text-gray-600"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              class="w-full px-4 py-2 mb-4 border rounded-md resize-none focus:outline-none focus:border-violet-500"
+            ></textarea>
+
+            <label class="block mb-2 text-sm font-medium text-gray-600"
+              >Tags (separate by comma)</label
+            >
+            <input
+              id="tags"
+              type="text"
+              class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-violet-500"
             />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost5.webp"
-              alt="mypost5"
-            />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost9.webp"
-              alt="mypost6"
-            />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost2.webp"
-              alt="mypost4"
-            />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost5.webp"
-              alt="mypost5"
-            />
-          </div>
-          <div>
-            <img
-              class="object-cover w-[424px] h-[482px] rounded-lg"
-              src="../images/socialmediapost9.webp"
-              alt="mypost6"
-            />
-          </div>
+
+            <button
+              type="submit"
+              class="w-full bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 focus:outline-none focus:shadow-outline-blue active:bg-violet-700"
+            >
+              Save
+            </button>
+            <button
+              id="delete-btn"
+              type=""
+              class="w-full bg-red-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 focus:outline-none focus:shadow-outline-blue active:bg-violet-700"
+            >
+              Delete
+            </button>
+          </form>
         </div>
+      </div>
+
+      <!-- Gallery -->
+      <div id="posts-container" class="flex justify-center py-4">
+        <div
+          id="grid-container"
+          class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        ></div>
       </div>
     </main>
   </body>

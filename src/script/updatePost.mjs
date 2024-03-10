@@ -35,7 +35,7 @@ createPostForm.addEventListener("submit", async (e) => {
   };
 
   const options = {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${profile.accessToken}`,
@@ -45,7 +45,7 @@ createPostForm.addEventListener("submit", async (e) => {
   };
 
   try {
-    const response = await fetch(API_BASE + API_POSTS, options);
+    const response = await fetch(`${API_BASE}${API_POSTS}/${postId}`, options);
     const result = await response.json();
 
     if (response.ok) {

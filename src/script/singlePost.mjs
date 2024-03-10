@@ -19,6 +19,7 @@ async function getSinglePost(postId) {
   );
   const post = await response.json();
   printPost(post.data);
+  console.log(post.data);
 }
 
 function printPost(post) {

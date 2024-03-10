@@ -6,6 +6,8 @@ export const API_REGISTER = "/register";
 export const API_LOGIN = "/login";
 export const API_KEY_URL = "/create-api-key";
 export const API_POSTS = "/social/posts";
+export const API_POST = "/posts";
 export const API_SINGLE_POST = "/social/posts/<id>";
+export const API_PROFILE = "/social/profiles";
 
 import register from "./src/script/api/auth/register.mjs";
