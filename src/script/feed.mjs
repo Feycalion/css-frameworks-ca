@@ -28,12 +28,31 @@ const searchBar = document.getElementById("search-bar");
 const postContainer = document.getElementById("posts-container");
 
 searchBar.addEventListener("keyup", (e) => {
-  //console.log(e.target.value);
   const filteredResult = postArray.filter((post) =>
     post.title.includes(e.target.value)
   );
   postContainer.innerHTML = "";
   printPosts(filteredResult);
+});
+
+const sortMenu = document.getElementById("sort");
+
+sortMenu.addEventListener("change", (e) => {
+  console.log(e.target.value);
+
+  let sortedResult = [];
+
+  if (e.target.value === "a-z") {
+    sortedResult = postArray
+      .slice()
+      .sort((a, b) => a.title.localeCompare(b.title));
+  } else
+    sortedResult = postArray
+      .slice()
+      .sort((a, b) => b.title.localeCompare(a.title));
+
+  postContainer.innerHTML = "";
+  printPosts(sortedResult);
 });
 
 function printPosts(posts) {
